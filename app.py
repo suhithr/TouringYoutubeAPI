@@ -6,6 +6,7 @@ from apiclient.discovery import build
 from apiclient.errors import HttpError
 from oauth2client.tools import argparser
 from flask.ext.sqlalchemy import SQLAlchemy
+import json
 
 #Youtube API
 DEVELOPER_KEY = "AIzaSyA8jyOIt0uwCo38aLz-5u0H0_fAKYEd288"
@@ -30,18 +31,30 @@ def search():
 	if request.method == 'POST':
 		search_term = request.form['search_term']
 		
-		youtube = build(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION, developerKey=DEVELOPER_KEY)
-		search_response = youtube.search().list(
-			q=search_term,
-			part="id, snippet",
-			type="youtube#video",
-			maxResults=25).execute()
-		videos = []
-		for search_result in search_response.get("items", []):
-			videos.append({"id" : search_result["id"], "title" : search_result["snippet"]["title"]})
-		print videos
-		return render_template('search.html', search_term=search_term, videos=videos)
+		present = test.query.filter_by(term=search_term).first()
+		
+		#If not in the database
+		if present != 'None':
+			youtube = build(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION, developerKey=DEVELOPER_KEY)
+			search_response = youtube.search().list(
+				q=search_term,
+				part="id, snippet",
+				type="youtube#video",
+				maxResults=25).execute()
+			videos = []
+			for search_result in search_response.get("items", []):
+				videos.append({"id" : search_result["id"], "title" : search_result["snippet"]["title"]})
+			print "and"
+			print videos
+			print "and"
 
+			print json.dumps(videos)
+			qry = test(search_term, json.dumps(videos))
+			db.session.add(qry)
+			db.session.commit()
+			return render_template('search.html', search_term=search_term, videos=videos)
+		#else:
+	
 	return render_template('search.html')
 
 @app.route('/result', methods=['GET', 'POST'])

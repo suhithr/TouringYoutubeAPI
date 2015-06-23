@@ -5,7 +5,7 @@ class test(db.Model):
 
 	id = db.Column(db.Integer, primary_key=True)
 	term = db.Column(db.String, nullable=False)
-	response = db.Column(db.String, nullable=False)
+	response = db.Column(db.Text, nullable=False)
 
 	def __init__(self, term, response):
 		self.term = term
