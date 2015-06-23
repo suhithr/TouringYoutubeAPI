@@ -5,7 +5,7 @@ from flask import Flask, render_template, url_for, request, session, g
 from apiclient.discovery import build
 from apiclient.errors import HttpError
 from oauth2client.tools import argparser
-
+from flask.ext.sqlalchemy import SQLAlchemy
 
 #Youtube API
 DEVELOPER_KEY = "AIzaSyA8jyOIt0uwCo38aLz-5u0H0_fAKYEd288"
@@ -15,6 +15,11 @@ YOUTUBE_API_VERSION = "v3"
 #creating the application object
 app = Flask(__name__)
 app.config.from_object('config.DevelopmentConfig')
+
+#create databse object
+db = SQLAlchemy(app)
+
+from models import *
 
 @app.route('/')
 def home():
@@ -35,9 +40,9 @@ def search():
 		for search_result in search_response.get("items", []):
 			videos.append({"id" : search_result["id"], "title" : search_result["snippet"]["title"]})
 		print videos
-		return render_template('location.html', search_term=search_term, videos=videos)
+		return render_template('search.html', search_term=search_term, videos=videos)
 
-	return render_template('location.html')
+	return render_template('search.html')
 
 @app.route('/result', methods=['GET', 'POST'])
 def result():
