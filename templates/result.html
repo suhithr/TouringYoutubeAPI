@@ -1,0 +1,13 @@
+<!doctype html>
+<html>
+<head>
+	<title>Result</title>
+</head>
+<body>
+	{% if selected_video %}
+		<div class="container">
+			The number of views is: {{ selected_video[0].viewcount }} 
+		</div>
+	{% endif %}
+</body>
+</html>
