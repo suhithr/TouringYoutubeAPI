@@ -6,6 +6,7 @@ from apiclient.discovery import build
 from apiclient.errors import HttpError
 from oauth2client.tools import argparser
 
+
 #Youtube API
 DEVELOPER_KEY = "AIzaSyA8jyOIt0uwCo38aLz-5u0H0_fAKYEd288"
 YOUTUBE_API_SERVICE_NAME = "youtube"
@@ -19,8 +20,8 @@ app.config.from_object('config.DevelopmentConfig')
 def home():
 	return render_template('index.html')
 
-@app.route('/location', methods=['GET', 'POST'])
-def location():
+@app.route('/search', methods=['GET', 'POST'])
+def search():
 	if request.method == 'POST':
 		search_term = request.form['search_term']
 		
@@ -58,7 +59,7 @@ def result():
 				"favoritecount" : response["statistics"]["favoriteCount"]})
 		print selected_video
 		return render_template("result.html", selected_video=selected_video)
-	return render_template('location.html')
+	return render_template('search.html')
 
 
 #start the server with the run method
