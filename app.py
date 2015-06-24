@@ -36,7 +36,8 @@ def search():
 
 		#fetching the last aka latest object from a query
 		present = test.query.filter_by(term=search_term).order_by(test.id.desc()).first()
-		
+		print type(present)
+
 		#Sends API call
 		def callSearchAPI(search_term):
 			youtube = build(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION, developerKey=DEVELOPER_KEY)
@@ -65,6 +66,8 @@ def search():
 
 			#It's been searched before, now check the age of the last search
 			if diff.total_seconds() > 3600:
+				db.session.delete(present)
+				db.session.commit()
 				videos = callSearchAPI(search_term)
 				return render_template('search.html', search_term=search_term, videos=videos)
 
@@ -117,6 +120,8 @@ def result():
 
 			#If the cached data is too old
 			if diff.total_seconds() > 3600:
+				db.session.delete(present)
+				db.session.commit()
 				selected_video = callStatAPI(selected_id)
 				return render_template("result.html", selected_video=selected_video, selected_id=selected_id)
 
