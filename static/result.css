@@ -1,0 +1,27 @@
+.chart {
+	font-size: 12px;
+	text-align: right;
+	margin: 4px;
+	margin-bottom: 5px;
+	margin-top: 5px;
+	color: black;
+	height: 18px;
+	white-space: nowrap;
+	font-family: 'Roboto Condensed', sans-serif;
+}
+
+#view:hover::after {
+	content: " is the number of VIEWS";
+}
+#like:hover::after {
+	content: " is the number of LIKES";
+}
+#dislike:hover::after {
+	content: " is the number of DISLIKES";
+}
+#comment:hover::after {
+	content: " is the number of COMMENTS";
+}
+#favorite:hover::after {
+	content: " is the number of FAVORITES";
+}

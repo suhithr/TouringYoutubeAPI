@@ -2,83 +2,71 @@
 <html>
 <head>
 	<title>Result</title>
+	<link href='http://fonts.googleapis.com/css?family=Roboto+Condensed' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" type="text/css" href="static/result.css">
 	<style>
-	.chart div {
-		font-size: 15px;
-		text-align: right;
-		background-color: #80d9ca;
-		padding: 4px;
-		margin: 2px;
-		color: black;
-		height: 20px;
-		border-radius: 3px;
-		white-space: nowrap;
-	}
-	.chart:hover {
-		background-color: white;
-	}
-
-	#view:hover::after {
-		content: " is the number of VIEWS";
-	}
-	#like:hover::after {
-		content: " is the number of LIKES";
-	}
-	#dislike:hover::after {
-		content: " is the number of DISLIKES";
-	}
-	#comment:hover::after {
-		content: " is the number of COMMENTS";
-	}
-	#favorite:hover::after {
-		content: " is the number of FAVORITES";
-	}
+		.chart {
+			padding: 3px;
+  			margin: 1px;
+		}
+		.heading {
+			text-align: center;
+			font-size: 40px;
+			font-family: 'Roboto Condensed', sans-serif;
+		}
 	</style>
+	<script>
+		window.addEventListener("load", buildGraph);
+
+
+			function buildGraph() {
+				function assignHeight(id, h){
+						var e = document.getElementById(id);
+						e.style.width = h + "px";
+					}
+
+				var v = document.getElementById("view");
+				var half = window.innerWidth * .8;
+				v.style.width = half + "px";
+				var lh = Number({{ selected_video[0].likecount }}) / Number({{ selected_video[0].viewcount }});
+				console.log(lh);
+				lh = lh * window.innerWidth * .8;
+				assignHeight('like', lh);
+
+				var dh = Number({{ selected_video[0].dislikecount }}) / Number({{ selected_video[0].viewcount }});
+				dh = dh * window.innerWidth * .8;
+				assignHeight('dislike', dh);
+
+				var ch = Number({{ selected_video[0].commentcount }}) / Number({{ selected_video[0].viewcount }});
+				ch = ch * window.innerWidth * .8;
+				assignHeight('comment', ch);
+
+				var fh = Number({{ selected_video[0].favoritecount }}) / Number({{ selected_video[0].viewcount }});
+				fh = fh * window.innerWidth * .8;
+				assignHeight('favorite', fh);
+		}
+	</script>
 </head>
 <body>
-
-	<div class="chart" id="container">
-		<div id="view">{{ selected_video[0].viewcount }}</div>
-		<div id="like">{{ selected_video[0].likecount }}</div>
-		<div id="dislike">{{ selected_video[0].dislikecount }}</div>
-		<div id="comment">{{ selected_video[0].commentcount }}</div>
-		<div id="favorite">{{ selected_video[0].favoritecount }}</div>
+	<div class="heading">
+		Result
 	</div>
-		<script>
-	function assignHeight(id, h){
-		var e = document.getElementById(id);
-		e.style.width = h + "px";
-	}
-		var v = document.getElementById("view");
-		var half = window.innerWidth * .8;
-		v.style.width = half + "px";
-		var lh = Number({{ selected_video[0].likecount }}) / Number({{ selected_video[0].viewcount }});
-		console.log(lh);
-		lh = lh * window.innerWidth * .8;
-		assignHeight('like', lh);
-
-		var dh = Number({{ selected_video[0].dislikecount }}) / Number({{ selected_video[0].viewcount }});
-		dh = dh * window.innerWidth * .8;
-		assignHeight('dislike', dh);
-
-		var ch = Number({{ selected_video[0].commentcount }}) / Number({{ selected_video[0].viewcount }});
-		ch = ch * window.innerWidth * .8;
-		assignHeight('comment', ch);
-	
-		var fh = Number({{ selected_video[0].favoritecount }}) / Number({{ selected_video[0].viewcount }});
-		fh = fh * window.innerWidth * .8;
-		assignHeight('favorite', fh);
-
-
-	</script>
-	<!-- Bar chart 
-	{% if selected_video %}
-		<div class="container">
-			The number of views is: {{ selected_video[0].viewcount }} 
-		</div>
-		<div class="graph">
-		</div>
-	{% endif %}
--->
+	<div class="text" style="text-align: center; margin-left: auto; margin-right: auto; margin-top: 100px; font-family: 'Roboto Condensed', sans-serif; font-size: 25px;">
+		Shown below is a bar chart displaying statistics about the video with id "{{ selected_id }}"
+	</div>
+<div id="container" style="font-family: 'Roboto Condensed', sans-serif; width: 85%; margin-left: auto; margin-right: auto; margin-top: 50px;">
+	<div class="chart">
+		<div id="view" style=" padding: 2px; background-color: #80d9ca; font-size: 16px; margin-bottom: 5px; margin-top: 5px;height: 25px; 	border-radius: 3px;">{{ selected_video[0].viewcount }}</div>
+		<div id="like" style=" padding: 2px; background-color: #80d9ca; font-size: 16px; margin-bottom: 5px; margin-top: 5px; height: 25px; 	border-radius: 3px;">{{ selected_video[0].likecount }}</div>
+		<div id="dislike" style=" padding: 2px; background-color: #80d9ca; font-size: 16px; margin-bottom: 5px; margin-top: 5px; height: 25px; border-radius: 3px;">{{ selected_video[0].dislikecount }}</div>
+		<div id="comment" style=" padding: 2px; background-color: #80d9ca; font-size: 16px; margin-bottom: 5px; margin-top: 5px; height: 25px;	border-radius: 3px;">{{ selected_video[0].commentcount }}</div>
+		<div id="favorite" style=" padding: 2px; background-color: #80d9ca; font-size: 16px; margin-bottom: 5px; margin-top: 5px; height: 25px; border-radius: 3px;">{{ selected_video[0].favoritecount }}</div>
+	</div>
+</div>
+	<div class="text" style="text-align: center; margin-left: auto; margin-right: auto; margin-top: 150px; font-family: 'Roboto Condensed', sans-serif; font-size: 20px;">
+		Mouse over the bars the get details about what each one represents
+		<br>
+		**{{ fromDB }}**
+	</div>
 </body>
 </html>

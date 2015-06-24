@@ -2,10 +2,33 @@
 <html>
 <head>
 	<title>Just Trying Out Flask Matey</title>
+	<link href='http://fonts.googleapis.com/css?family=Roboto+Condensed' rel='stylesheet' type='text/css'>
+	<style>
+		.heading {
+			text-align: center;
+			font-size: 40px;
+			font-family: 'Roboto Condensed', sans-serif;
+		}
+		body {
+			font-family: 'Roboto Condensed', sans-serif;
+			font-size: 20px;
+			text-align: center;
+		}
+		.container {
+			margin-top: 10%;
+		}
+	</style>
 </head>
 <body>
+	<div class="heading">
+		Touring YoutubeAPI
+	</div>
 	<div class="container">
-		Let's do this
+		With this Flask App you can search for YouTube Videos and then view the statistics of a selected video.
+		<br>
+		It has database acting as a cache implemented in a PostgreSQL backend, which should speed things up a bit, and at the least cut down on unnecessary API calls.
+		<br>
+		To get started, head over to the search route over <a href='/search'>here</a>.
 	</div>
 </body>
 </html>

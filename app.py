@@ -69,7 +69,8 @@ def search():
 				return render_template('search.html', search_term=search_term, videos=videos)
 
 			videos = json.loads(present.response)
-			return render_template('search.html', search_term=search_term, videos=videos)
+			fromDB = "It's from the database"
+			return render_template('search.html', search_term=search_term, videos=videos, fromDB=fromDB)
 	
 	return render_template('search.html')
 
@@ -77,7 +78,6 @@ def search():
 def result():
 	if request.method == 'POST':
 		selected_id = request.form['selected_id']
-
 		#Trying to retrieve the id from the existing table
 		present = test_selected.query.filter_by(term_id=selected_id).order_by(test_selected.id.desc()).first()
 
@@ -109,7 +109,7 @@ def result():
 		#If the data is already in the table or too old
 		if present == None:
 			selected_video = callStatAPI(selected_id)
-			return render_template("result.html", selected_video=selected_video)
+			return render_template("result.html", selected_video=selected_video, selected_id=selected_id)
 
 		else:
 			#Finding out how old the data is
@@ -118,10 +118,11 @@ def result():
 			#If the cached data is too old
 			if diff.total_seconds() > 3600:
 				selected_video = callStatAPI(selected_id)
-				return render_template("result.html", selected_video=selected_video)
+				return render_template("result.html", selected_video=selected_video, selected_id=selected_id)
 
 			selected_video = json.loads(present.response)
-			return render_template("result.html", selected_video=selected_video)
+			fromDB = "It's from the database"
+			return render_template("result.html", selected_id=selected_id,selected_video=selected_video, fromDB=fromDB)
 	return redirect(url_for('search'))
 
 

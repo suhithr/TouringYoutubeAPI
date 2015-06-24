@@ -2,23 +2,65 @@
 <html>
 <head>
 	<title>Enter Data</title>
+	<link href='http://fonts.googleapis.com/css?family=Roboto+Condensed' rel='stylesheet' type='text/css'>
+	<style>
+		body {
+			font-family: 'Roboto Condensed', sans-serif;
+		}
+		div.result, .form{
+			margin-left: 35%;
+			display: inline-block;
+		}
+		button, .button {
+			font-family: 'Roboto Condensed', sans-serif;
+			font-size: 17px;
+			background-color: #80d9ca;
+			color: gray;
+			border-radius: 4px;
+		}
+		button:hover, .button:hover {
+			border-color: gray;
+			border-radius: 4px;
+		}
+		.heading {
+			text-align: center;
+			font-size: 40px;
+		}
+		.form {
+				margin-left: 42%;
+		}
+	</style>
 </head>
 <body>
+	<div class="heading">
+		Search
+	</div>
 	<div class="container">
-		<form action="" method="POST">
-			{% if search_term %}
-				<input type="text" placeholder="Enter the Video you Want to Search For" name="search_term" value="{{ search_term }}" autofocus>
-			{% else %}
-				<input type="text" placeholder="Enter the Video you Want to Search For" name="search_term" autofocus>
-			{% endif %}
-			<input type="submit" name="my-form" value="Submit">
-		</form>
+		<br>
+		<br>
+		<br>
+		<div class="form">
+			<form action="" method="POST">
+				{% if search_term %}
+					<input type="text" placeholder="Enter the Video to Search For" name="search_term" value="{{ search_term }}" autofocus>
+				{% else %}
+					<input type="text" placeholder="Enter the Video to Search For" name="search_term" autofocus>
+				{% endif %}
+				<input class="button" type="submit" name="my-form" value="Submit">
+			</form>
+		</div>
 		<form action="/result" method="POST">
+		{% if fromDB %}
+			<div class="result">{{ fromDB }}</div>
+		{% endif %}
+		<br>
 		{% for result in videos %}
 			<div class="result">
 				<button name="selected_id" value="{{ result.id.videoId }}">{{ result.title }}</button>
 			</div>
+			<br>
 		{% endfor %}
+
 	</div>
 </body>
 </html>
