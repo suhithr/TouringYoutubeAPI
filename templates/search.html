@@ -7,9 +7,9 @@
 	<div class="container">
 		<form action="" method="POST">
 			{% if search_term %}
-				<input type="text" placeholder="Enter the Video you Want to Search For" name="search_term" value="{{ search_term }}">
+				<input type="text" placeholder="Enter the Video you Want to Search For" name="search_term" value="{{ search_term }}" autofocus>
 			{% else %}
-				<input type="text" placeholder="Enter the Video you Want to Search For" name="search_term">
+				<input type="text" placeholder="Enter the Video you Want to Search For" name="search_term" autofocus>
 			{% endif %}
 			<input type="submit" name="my-form" value="Submit">
 		</form>

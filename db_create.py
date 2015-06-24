@@ -1,6 +1,6 @@
 from app import db
-from models import test
+from models import test, test_selected
 
 db.create_all()
-#db.session.add(test("theTerm", "theResponse"))
+#db.session.add(test("theTerm", "[{'id': {u'kind': u'youtube#video', u'videoId': u'0NKUpo_xKyQ'}, 'title': u'Ellie Goulding - Lights'}, {'id': {u'kind': u'youtube#channel', u'channelId': u'UCAxgvVWyrh2HvKlZNnhTFdA'}, 'title': u'lights'}, {'id': {u'kind': u'youtube#video', u'videoId': u'pFl7DhdGGzo'}, 'title': u'LIGHTS - Up We Go [Official Music Video]'}, {'id': {u'kind': u'youtube#video', u'videoId': u'IS6AFoxkB38'}, 'title': u'Borgeous Feat. Lights - Zero Gravity (Official Music Video)'}, {'id': {u'kind': u'youtube#video', u'videoId': u'0qG-AYZvry0'}, 'title': u'Lights & Motion - Fireflies'}, {'id': {u'kind': u'youtube#video', u'videoId': u'iaJ4wzDO5fA'}, 'title': u'Lights - Ellie Goulding lyrics'}, {'id': {u'kind': u'youtube#video', u'videoId': u'J8NUoavtgXY'}, 'title': u'The Chemical Brothers - Under Neon Lights'}, {'id': {u'kind': u'youtube#video', u'videoId': u'WIimpCfcLo0'}, 'title': u'Strange Lights in the Sky'}, {'id': {u'kind': u'youtube#video', u'videoId': u'1tjblu5jaBM'}, 'title': u'LIGHTS - Same Sea [Official Music Video ]'}, {'id': {u'kind': u'youtube#video', u'videoId': u'_X3zv1lNd0g'}, 'title': u'Lights  -  Little Machines ( Full Album 2014 ) || Deluxe Album From Lights .HQ'}]"))
 db.session.commit()

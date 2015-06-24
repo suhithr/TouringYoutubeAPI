@@ -2,8 +2,15 @@
 <html>
 <head>
 	<title>Result</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js" charset="utf-8"></script>
 </head>
 <body>
+	<!-- Bar chart -->
+	<script>
+		var div = document.createElement("div");
+		div.innerHTML = "Hello, world!";
+		document.bosy.appendChild(div);
+	</script>
 	{% if selected_video %}
 		<div class="container">
 			The number of views is: {{ selected_video[0].viewcount }} 
