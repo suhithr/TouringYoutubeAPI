@@ -2,19 +2,83 @@
 <html>
 <head>
 	<title>Result</title>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js" charset="utf-8"></script>
+	<style>
+	.chart div {
+		font-size: 15px;
+		text-align: right;
+		background-color: #80d9ca;
+		padding: 4px;
+		margin: 2px;
+		color: black;
+		height: 20px;
+		border-radius: 3px;
+		white-space: nowrap;
+	}
+	.chart:hover {
+		background-color: white;
+	}
+
+	#view:hover::after {
+		content: " is the number of VIEWS";
+	}
+	#like:hover::after {
+		content: " is the number of LIKES";
+	}
+	#dislike:hover::after {
+		content: " is the number of DISLIKES";
+	}
+	#comment:hover::after {
+		content: " is the number of COMMENTS";
+	}
+	#favorite:hover::after {
+		content: " is the number of FAVORITES";
+	}
+	</style>
 </head>
 <body>
-	<!-- Bar chart -->
-	<script>
-		var div = document.createElement("div");
-		div.innerHTML = "Hello, world!";
-		document.bosy.appendChild(div);
+
+	<div class="chart" id="container">
+		<div id="view">{{ selected_video[0].viewcount }}</div>
+		<div id="like">{{ selected_video[0].likecount }}</div>
+		<div id="dislike">{{ selected_video[0].dislikecount }}</div>
+		<div id="comment">{{ selected_video[0].commentcount }}</div>
+		<div id="favorite">{{ selected_video[0].favoritecount }}</div>
+	</div>
+		<script>
+	function assignHeight(id, h){
+		var e = document.getElementById(id);
+		e.style.width = h + "px";
+	}
+		var v = document.getElementById("view");
+		var half = window.innerWidth * .8;
+		v.style.width = half + "px";
+		var lh = Number({{ selected_video[0].likecount }}) / Number({{ selected_video[0].viewcount }});
+		console.log(lh);
+		lh = lh * window.innerWidth * .8;
+		assignHeight('like', lh);
+
+		var dh = Number({{ selected_video[0].dislikecount }}) / Number({{ selected_video[0].viewcount }});
+		dh = dh * window.innerWidth * .8;
+		assignHeight('dislike', dh);
+
+		var ch = Number({{ selected_video[0].commentcount }}) / Number({{ selected_video[0].viewcount }});
+		ch = ch * window.innerWidth * .8;
+		assignHeight('comment', ch);
+	
+		var fh = Number({{ selected_video[0].favoritecount }}) / Number({{ selected_video[0].viewcount }});
+		fh = fh * window.innerWidth * .8;
+		assignHeight('favorite', fh);
+
+
 	</script>
+	<!-- Bar chart 
 	{% if selected_video %}
 		<div class="container">
 			The number of views is: {{ selected_video[0].viewcount }} 
 		</div>
+		<div class="graph">
+		</div>
 	{% endif %}
+-->
 </body>
 </html>
