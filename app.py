@@ -17,7 +17,7 @@ YOUTUBE_API_VERSION = "v3"
 
 #creating the application object
 app = Flask(__name__)
-app.config.from_object('config.DevelopmentConfig')
+app.config.from_object('config.ProductionConfig')
 
 #create databse object
 db = SQLAlchemy(app)
